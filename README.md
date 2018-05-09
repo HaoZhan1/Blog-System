@@ -1,5 +1,5 @@
-# Blog-System
-The blog system which is constructed by SpringBoot.
+# Blog-System Demo
+The blog system demo which is constructed by SpringBoot.
 
 #### Install the Maven:
 
@@ -10,6 +10,6 @@ The blog system which is constructed by SpringBoot.
 
 #### Run the project:
 
-* Run `bash run.bash` to start the project (Your need to install the maven & java firstly).
+* Run `bash run.bash` to start the project (You need to install the maven & java firstly).
 * Type into "http://localhost:8080/main/index" to get access to the Main Page.
 
