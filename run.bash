@@ -1,4 +1,5 @@
 #! /bin/bash
+docker-compose up &
 mvn clean install
 cd target 
-java -jar enterprise-web-development-0.0.1-SNAPSHOT.jar 
+java -jar Blog-System-0.0.1-SNAPSHOT.jar
