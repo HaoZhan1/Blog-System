@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog Detail</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+    <div>
+        <h2 style="margin-left: 10px"> the Content Detail Page </h2>
+        <!--content-->
+        <div style="margin-left: 10px">
+            <h3 th:text="'Content:    ' + ${blog.content}">content</h3>
+        </div>
+        <!--parameters-->
+        <div style="margin-bottom: 20px; margin-left: 10px">
+            <ul th:if="${tagExists}">
+                <span style="color: red">you have already choose the tag for this content</span>
+            </ul>
+            <table border="1px" cellpadding="1px">
+                <thead>
+                    <tr>
+                        <td style="width: 40px;text-align: center">voteCount</td>
+                        <td style="width: 40px;text-align: center">favoriteCount</td>
+                        <td style="width: 40px;text-align: center">tagCount</td>
+                        <td style="width: 70px;text-align: center" th:each="tag : ${blog.tagList}">tags & tagCount</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width: 40px;text-align: center" th:text="${blog.voteCount}"></td>
+                        <td style="width: 40px;text-align: center" th:text="${blog.favoriteCount}">favoriteCount</td>
+                        <td style="width: 40px;text-align: center" th:text="${blog.tagCount}">tagCount</td>
+                        <td style="width: 70px;text-align: center" th:each="tag : ${blog.tagList}" th:text="${tag.tagName + ':' + tag.count}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 40px;text-align: center" th:text="${blog.voteCount}"></td>
+                        <td style="width: 40px;text-align: center" th:text="${blog.favoriteCount}">favoriteCount</td>
+                        <td style="width: 40px;text-align: center" th:text="${blog.tagCount}">tagCount</td>
+                        <td style="width: 70px;text-align: center" th:each="tag : ${blog.tagList}">
+                            <form th:action="@{'/main/blog/' + ${blog.id} + '/addTagCount'}" method="post">
+                                <input type="hidden" th:value="${tag.tagName}" name="tagName">
+                                <button type="submit">chose this tag</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--three add functions-->
+        <div th:if="${!ifContains}"style="margin-left: 10px">
+            <form th:action="@{'/main/blog/' + ${blog.id} + '/addFavorite'}" method="post" th:object="${addFavoriteForm}" style="margin-bottom: 20px">
+                <!--global errors-->
+                <ul th:if="${#fields.hasErrors('global')}">
+                    <span style="color: red" th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
+                </ul>
+                <input type="hidden" name="blogId" th:value="*{blogId}">
+                <button type="submit">favorite</button>
+            </form>
+
+            <form th:action="@{'/main/blog/' + ${blog.id} + '/addVote'}" method="post" style="margin-bottom: 20px">
+                <ul th:if="${voteExists}">
+                    <span style="color: red">you have already votes for this content</span>
+                </ul>
+                <button type="submit">vote</button>
+            </form>
+
+            <form th:action="@{'/main/blog/' + ${blog.id} + '/addTags'}" method="post" th:object="${addTagsForm}" style="margin-bottom: 20px">
+                <!--global errors-->
+                <ul th:if="${#fields.hasErrors('global')}">
+                    <span style="color: red" th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
+                </ul>
+                <div style="margin-bottom: 25px">
+                    <label for="tagName" >tagName</label>
+                    <input id="tagName" name = "tagName" th:value="*{tagName}" required="required" />
+                 </div>
+                <button type="submit">add tag</button>
+            </form>
+
+        </div>
+        <!--related contents-->
+        <div>
+            <h3 style="margin-left: 10px">Related Content List</h3>
+            <ul>
+                <li th:each="reBlog: ${relatedContent}" style="list-style: none; margin-bottom: 20px; border:2px solid green; width: 80%">
+                    <div style="width: 80%">
+                        <div style="border-bottom: 2px solid green; margin-bottom: 5px">
+                            <h3 style="margin-left: 5px" th:text="'Content:' + ${reBlog.content}"></h3>
+                            <h3 style="margin-left: 5px" th:text="'UserName:' + ${reBlog.user.username}"></h3>
+                        </div>
+                        <div style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px; padding-left: 4px">
+                            <table border="1px" cellpadding="1px">
+                                <thead>
+                                <tr>
+                                    <td style="width: 40px;text-align: center">voteCount</td>
+                                    <td style="width: 40px;text-align: center">favoriteCount</td>
+                                    <td style="width: 40px;text-align: center">tagCount</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="width: 40px;text-align: center" th:text="${reBlog.voteCount}">voteCount</td>
+                                    <td style="width: 40px;text-align: center" th:text="${reBlog.favoriteCount}">favoriteCount</td>
+                                    <td style="width: 40px;text-align: center" th:text="${reBlog.tagCount}">tagCount</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-bottom: 5px; padding-left: 4px">
+                            <form th:action="@{'/main/blog/' + ${reBlog.id}}" method="get">
+                                <button type="submit">learn about the content detail</button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

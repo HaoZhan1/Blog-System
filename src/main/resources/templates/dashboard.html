@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Person DashBoard</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+    <div>
+        <h2>the Dashboard Page</h2>
+        <h3 th:text="'UserName: ' + ${user.username}"></h3>
+        <form th:action="@{/home/favorite}" method="get" style="margin-bottom: 5px">
+            <button type="submit">go to your favorite contents</button>
+        </form>
+    </div>
+    <div>
+        <form th:action="@{/home/addBlog}" method="get"  style="margin-bottom: 10px">
+            <button type="submit">add a new content</button>
+        </form>
+    </div>
+    <div>
+        <ul>
+            <h3 style="margin-left: 10px">the Content List</h3>
+            <li th:each="blog: ${blogList}" style="list-style: none; margin-bottom: 20px; border:2px solid green; width: 80%">
+                <div>
+                    <div style="border-bottom: 2px solid green; margin-bottom: 5px">
+                        <h3 style="margin-left: 5px" th:text="'Content:' + ${blog.content}"></h3>
+                    </div>
+                    <div style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px; padding-left: 4px">
+                        <table border="1px" cellpadding="1px">
+                            <thead>
+                            <tr>
+                                <td style="width: 30px;text-align: center">voteCount</td>
+                                <td style="width: 30px;text-align: center">favoriteCount</td>
+                                <td style="width: 30px;text-align: center">tagCount</td>
+                                <td style="width: 70px;text-align: center" th:each="tag : ${blog.tagList}">tags & tagCount</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="width: 30px;text-align: center">
+                                <td style="width: 30px;text-align: center" th:text="${blog.voteCount}">voteCount</td>
+                                <td style="width: 30px;text-align: center" th:text="${blog.favoriteCount}">favoriteCount</td>
+                                <td style="width: 30px;text-align: center" th:text="${blog.tagCount}">tagCount</td>
+                                <td style="width: 70px;text-align: center" th:each="tag : ${blog.tagList}" th:text="${tag.tagName + ':' + tag.count}">
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>fragment</title>
+</head>
+<body>
+    <div th:fragment="header">
+        <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+            <!--validate the authentication-->
+            <div sec:authorize="isAuthenticated()" class="row">
+                <div class="dropdown" style="margin-left: 20px">
+                    <a class=" dropdown-toggle" th:href="@{/home/index}" style="color: red; font-size: 20px">Your dashBoard</a>
+                    <!--<div>-->
+                        <!--User Email: <span th:text="${user.email}"></span>-->
+                    <!--</div>-->
+                </div>
+                <!--log out-->
+                <form th:action="@{/logout}" method="post" style="margin-left: 20px">
+                    <input type="submit" value="log out">
+                </form>
+            </div>
+            <!--not login-->
+            <div sec:authorize="isAnonymous()">
+                <a th:href="@{/login}" class="btn btn-outline-success my-2 my-sm-0" type="submit" style="font-size: 20px">Login</a>
+                <a th:href="@{/register}" class="btn btn-outline-success my-2 my-sm-0" type="submit" style="font-size: 20px">Register</a>
+            </div>
+            <div>
+                <a th:href="@{/main/index}" class="btn btn-outline-success my-2 my-sm-0" type="submit" style="font-size: 20px">Main Page</a>
+            </div>
+        </nav>
+    </div>
+</body>
+</html>

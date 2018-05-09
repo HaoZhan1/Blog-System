@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+
+<!--main content-->
+    <div>
+        <form th:action="@{/perform_login}" method="post">
+            <h2 style="margin-left: 10px"> the Login Page </h2>
+            <!--global errors-->
+            <div class="form-group">
+                <div class="col-xs-15">
+                    <div>
+                        <p th:if="${param.error}" style="color: red; font-size:medium">
+                                Invalid UserName or Password
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--userName & password-->
+            <div class="form-group col-md-5">
+                <label for="username" class="col-form-label">UserName</label>
+                <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="Please input the userName">
+            </div>
+            <div class="form-group col-md-5">
+                <label for="password" class="col-form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="Please input the password" >
+            </div>
+            <div class="form-group col-md-5">
+                <button type="submit" class="btn btn-primary">Login</button>
+            </div>
+        </form>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

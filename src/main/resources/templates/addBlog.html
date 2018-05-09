@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Content</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+    <div>
+        <h2 style="margin-left: 10px">the Add Content Page</h2>
+        <form th:action="@{/home/addBlog}" method="post">
+            <div class="form-group col-md-5">
+                <label for="content" class="col-form-label">Content</label>
+                <input type="text" class="form-control" id="content" name="content" maxlength="50" placeholder="Please input the Content">
+            </div>
+            <div class="form-group col-md-5">
+                <button type="submit" class="btn btn-primary">addContent</button>
+            </div>
+        </form>
+    </div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>

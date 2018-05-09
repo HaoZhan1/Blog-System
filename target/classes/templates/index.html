@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+  <!---search-->
+    <div style="margin-bottom: 20px">
+        <h2 style="margin-left: 10px"> the Main Page </h2>
+        <form th:action="@{/main/search}" method="post">
+            <input type="text" name="query">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div>
+        <h3 style="margin-left: 10px">Content List</h3>
+        <ul>
+            <li th:each="blog: ${blogList}"  style="list-style: none; margin-bottom: 20px; border:2px solid green; width: 80%">
+               <div>
+                   <div style="border-bottom: 2px solid green; margin-bottom: 5px">
+                       <h3 style="margin-left: 5px" th:text="'Content:' + ${blog.content}"></h3>
+                       <h3 style="margin-left: 5px" th:text="'UserName:' + ${blog.user.username}"></h3>
+                   </div>
+                   <div style="margin-bottom: 6px; padding-top: 4px; padding-bottom: 4px; padding-left: 4px">
+                        <table border="1px" cellpadding="1px">
+                            <thead>
+                                <tr>
+                                    <td style="width: 40px;text-align: center">voteCount</td>
+                                    <td style="width: 40px;text-align: center">favoriteCount</td>
+                                    <td style="width: 40px;text-align: center">tagCount</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="width: 40px;text-align: center" th:text="${blog.voteCount}">voteCount</td>
+                                    <td style="width: 40px;text-align: center" th:text="${blog.favoriteCount}">favoriteCount</td>
+                                    <td style="width: 40px;text-align: center" th:text="${blog.tagCount}">tagCount</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="margin-bottom: 5px; padding-left: 4px">
+                       <form th:action="@{'/main/blog/' + ${blog.id}}" method="get">
+                           <button type="submit">learn about the content detail</button>
+                       </form>
+                    </div>
+               </div>
+           </li>
+       </ul>
+    </div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

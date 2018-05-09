@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="fragment :: header"></div>
+<!-- Register Form -->
+    <h2 style="margin-left: 10px"> the Register Page </h2>
+    <form th:action="@{/register}" method="post"  th:object="${registerForm}">
+        <!--global errors-->
+        <ul th:if="${#fields.hasErrors('global')}">
+            <span style="color: red" th:each="err : ${#fields.errors('global')}" th:text="${err}"></span>
+        </ul>
+        <!-- User name -->
+        <div style="margin-bottom: 25px">
+            <label for="username" >Username</label>
+            <input id="username" type="text" name="username" th:value="*{username}" required="required" />
+            <p th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Incorrect username</p>
+        </div>
+
+        <!-- Email -->
+        <div style="margin-bottom: 25px">
+             <label for="email" >Email</label>
+            <input id="email" type="text" th:value="*{email}" name = "email" required="required"/>
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Incorrect email</p>
+        </div>
+
+        <!-- Password -->
+        <div style="margin-bottom: 25px">
+            <label for="password">Password</label>
+            <input id="password" type="password" th:value="*{password}" name = "password" required="required"/>
+            <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Incorrect password</p>
+        </div>
+
+        <!-- Confirm Password -->
+        <div style="margin-bottom: 25px" >
+            <label for="checkPassword">Confirm Password</label>
+            <input id="checkPassword" type="password" th:value="*{checkPassword}" name = "checkPassword" required="required"/>
+            <p th:if="${#fields.hasErrors('checkPassword')}" th:errors="*{checkPassword}">Incorrect checkPassword</p>
+        </div>
+
+        <!-- Register Button -->
+        <div style="margin-top: 10px">
+                <button type="submit">Register</button>
+        </div>
+    </form>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>
